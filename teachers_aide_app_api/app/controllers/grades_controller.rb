@@ -16,9 +16,10 @@ class GradesController < ApplicationController
   # POST /grades
   def create
     @grade = Grade.new(grade_params)
+    puts grade_params
 
     if @grade.save
-      render json: @grade, status: :created, location: @grade
+      render json: @grade, status: :created
     else
       render json: @grade.errors, status: :unprocessable_entity
     end
