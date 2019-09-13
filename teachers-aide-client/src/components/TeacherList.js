@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import axios from 'axios'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-
-
-const baseURL = 'http://localhost:3000';
-
 
 class TeacherList extends React.Component {
     constructor(props) {
@@ -23,6 +17,7 @@ class TeacherList extends React.Component {
                     <h5>Select Your Name to Add Assignments</h5>
                     <div className="container">
                         {this.props.teachers.map(teacher => {
+                            console.log("TeacherList ID: ", teacher.id)
                             return (
 
                                 <div key={teacher.id} onClick={() => {

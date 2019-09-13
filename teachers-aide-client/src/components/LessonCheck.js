@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class AddStudent extends React.Component {
+class LessonCheck extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -11,11 +11,14 @@ class AddStudent extends React.Component {
     render() {
         return (
             <div>
-                <h2>Adding Students</h2>
+                <h4>LessonCheck</h4>
+                <h5>Lesson: {this.props.selectedLesson.lesson_name}</h5>
+
+
 
             </div>
         )
     }
 }
 
-export default AddStudent;
+export default LessonCheck;
