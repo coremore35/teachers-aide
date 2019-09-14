@@ -11,10 +11,10 @@ class TeacherList extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <>
                     <h3>Teacher List</h3>
-                    <h5>Select Your Name to Add Assignments</h5>
+                    <h5>Select Your Name to See Assignments or Add NEW</h5>
                     <div className="container">
                         {this.props.teachers.map(teacher => {
                             console.log("TeacherList ID: ", teacher.id)

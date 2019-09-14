@@ -5,6 +5,8 @@ import LessonCheck from './components/LessonCheck';
 import TeacherList from './components/TeacherList'
 import TeacherLanding from './components/TeacherLanding'
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Nav, Navbar } from 'react-bootstrap'
 
 const baseURL = 'http://localhost:3000';
 
@@ -20,19 +22,23 @@ class App extends React.Component {
       students: [],
       lessons: [],
       selectedLesson: {},
-      lessonID: null
+      lessonID: null,
+      grades: []
     }
     this.getTeacherID = this.getTeacherID.bind(this)
     this.getLessonID = this.getLessonID.bind(this)
     this.getTeacherData = this.getTeacherData.bind(this)
     this.getLessonData = this.getLessonData.bind(this)
+    this.getStudentData = this.getStudentData.bind(this)
+    this.getGradeData = this.getGradeData.bind(this)
   }
 
   componentDidMount() {
     this.getTeacherData()
     this.getLessonData()
+    this.getStudentData()
+    this.getGradeData()
   }
-
 
 
   async getTeacherData() {
@@ -52,6 +58,27 @@ class App extends React.Component {
       lessons: data
     })
     console.log("lesson Data: ", this.state.lessons)
+  }
+
+  async getStudentData() {
+    const response = await axios.get(`${baseURL}/teachers/${this.state.teacherID}/lessons/${this.state.lessonID}/students`)
+    const data = response.data
+    console.log(data)
+    this.setState({
+      students: data
+    })
+    console.log("student data: ", this.state.students)
+  }
+
+
+  async getGradeData() {
+    const response = await axios.get(`${baseURL}/teachers/${this.state.teacherID}/lessons/${this.state.lessonID}/grades`)
+    const data = response.data
+    console.log(data)
+    this.setState({
+      grades: data
+    })
+    console.log("student data: ", this.state.grades)
   }
 
   getTeacherID(id) {
@@ -92,21 +119,17 @@ class App extends React.Component {
     return (
       <div className="App">
         <Router>
-          <nav>
-            <div className="nav-wrapper">
-              <Link to="/" className="brand-logo">Quick Check <span>&#9989;</span></Link>
-              <a href="/" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
-              <div id="nav-mobile" className="right hide-on-med-and-down">
-                <Link to="/TeacherList">LESSONS</Link>
-                <Link to="/grades">GRADES</Link>
-              </div>
-            </div>
-          </nav>
+          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar.Brand to="/">Quick Check <span>&#9989;</span></Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href="/TeacherList">Teacher List</Nav.Link>
+              </Nav>
 
-          <div className="sidenav" id="mobile-demo">
-            <Link to="/TeacherList">LESSONS</Link>
-            <Link to="/grades">GRADES</Link>
-          </div>
+            </Navbar.Collapse>
+          </Navbar>
 
           <Route
             exact path="/TeacherList"
@@ -133,7 +156,9 @@ class App extends React.Component {
             path={`/teacher/${this.state.teacherID}/lessons/${this.state.lessonID}`}
             render={(props) => (
               <LessonCheck
+                students={this.state.students}
                 selectedLesson={this.state.selectedLesson}
+                grades={this.state.grades}
               />
             )}
           />
