@@ -23,72 +23,73 @@ end
 15.times do
     Student.create(
         first_name: Faker::Name.first_name,
-        last_name: Faker::Name.last_name
+        last_name: Faker::Name.last_name,
+        grade_mark: Faker::Number.within(range:1..3)
     )
 end
 
 lessons = Lesson.create([{lesson_name: 'Finding a common denominator'}, {lesson_name: 'Adding fractions with an unlike denominator'}, {lesson_name: 'Subtracting fractions with an unlike denominator'}])
 
 
-# Teacher 1
-n=0
-15.times do
-    Grade.create(
-        teacher_id: 1,
-        student_id: n = n + 1,
-        lesson_id: 1,
-        student_grade: Faker::Number.within(range: 1..3)
-    )
-end
+# # Teacher 1
+# n=0
+# 15.times do
+#     Grade.create(
+#         teacher_id: 1,
+#         student_id: n = n + 1,
+#         lesson_id: 1,
+#         student_grade: Faker::Number.within(range: 1..3)
+#     )
+# end
 
-n=0
-15.times do
-    Grade.create(
-        teacher_id: 1,
-        student_id: n = n + 1,
-        lesson_id: 2,
-        student_grade: Faker::Number.within(range: 1..3)
-    )
-end
+# n=0
+# 15.times do
+#     Grade.create(
+#         teacher_id: 1,
+#         student_id: n = n + 1,
+#         lesson_id: 2,
+#         student_grade: Faker::Number.within(range: 1..3)
+#     )
+# end
 
-n=0
-15.times do
-    Grade.create(
-        teacher_id: 1,
-        student_id: n = n + 1,
-        lesson_id: 3,
-        student_grade: Faker::Number.within(range: 1..3)
-    )
-end
+# n=0
+# 15.times do
+#     Grade.create(
+#         teacher_id: 1,
+#         student_id: n = n + 1,
+#         lesson_id: 3,
+#         student_grade: Faker::Number.within(range: 1..3)
+#     )
+# end
 
 
-# Teacher 2
-n=0
-15.times do
-    Grade.create(
-        teacher_id: 2,
-        student_id: n = n + 1,
-        lesson_id: 1,
-        student_grade: Faker::Number.within(range: 1..3)
-    )
-end
+# # Teacher 2
+# n=0
+# 15.times do
+#     Grade.create(
+#         teacher_id: 2,
+#         student_id: n = n + 1,
+#         lesson_id: 1,
+#         student_grade: Faker::Number.within(range: 1..3)
+#     )
+# end
 
-n=0
-15.times do
-    Grade.create(
-        teacher_id: 2,
-        student_id: n = n + 1,
-        lesson_id: 2,
-        student_grade: Faker::Number.within(range: 1..3)
-    )
-end
+# n=0
+# 15.times do
+#     Grade.create(
+#         teacher_id: 2,
+#         student_id: n = n + 1,
+#         lesson_id: 2,
+#         student_grade: Faker::Number.within(range: 1..3)
+#     )
+# end
 
-n=0
-15.times do
-    Grade.create(
-        teacher_id: 2,
-        student_id: n = n + 1,
-        lesson_id: 3,
-        student_grade: Faker::Number.within(range: 1..3)
-    )
-end
+# n=0
+# 15.times do
+#     Grade.create(
+#         teacher_id: 2,
+#         student_id: n = n + 1,
+#         lesson_id: 3,
+#         student_grade: Faker::Number.within(range: 1..3)
+#     )
+# end

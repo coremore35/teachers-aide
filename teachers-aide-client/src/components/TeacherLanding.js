@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Button, Modal } from 'react-bootstrap'
+
 
 
 class TeacherLanding extends React.Component {
@@ -7,9 +9,20 @@ class TeacherLanding extends React.Component {
         super(props);
         this.state = {
             first_name: '',
-            last_name: ''
+            last_name: '',
+            modal: false
         }
+        this.toggle = this.toggle.bind(this)
     }
+
+
+    toggle = () => {
+        this.setState({
+            modal: !this.state.modal
+        });
+    }
+
+
 
     render() {
         return (
@@ -31,6 +44,21 @@ class TeacherLanding extends React.Component {
                         )
                     })}
 
+                    {(this.state.modal === false) ?
+                        <Button variant="info" onClick={this.toggle}>
+                            Add New Lesson                        </Button>
+                        : (<Modal show={this.toggle} >
+                            <Modal.Header >
+                                <Modal.Title>Modal heading</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={this.toggle}>
+                                    Close
+                                 </Button>
+
+                            </Modal.Footer>
+                        </Modal>)}
                 </div>
             </div>
         )

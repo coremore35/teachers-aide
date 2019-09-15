@@ -18,12 +18,14 @@ class LessonCheck extends React.Component {
                 sort: true
 
             }, {
-                dataField: 'student_grade',
+                dataField: 'grade_mark',
                 text: 'Grade',
                 sort: true
             }]
         }
     }
+
+
     render() {
         return (
             <div className="container" style={{ marginTop: 50 }}>
@@ -36,10 +38,6 @@ class LessonCheck extends React.Component {
                     keyField='id'
                     data={this.props.students}
                     columns={this.state.columns} />
-
-
-
-
 
             </div>
         )

@@ -6,7 +6,7 @@ import TeacherList from './components/TeacherList'
 import TeacherLanding from './components/TeacherLanding'
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Nav, Navbar } from 'react-bootstrap'
+import { Nav, Navbar, Image, Container, Col, Row } from 'react-bootstrap'
 
 const baseURL = 'http://localhost:3000';
 
@@ -31,6 +31,7 @@ class App extends React.Component {
     this.getLessonData = this.getLessonData.bind(this)
     this.getStudentData = this.getStudentData.bind(this)
     this.getGradeData = this.getGradeData.bind(this)
+    this.handleAddTeacher = this.handleAddTeacher.bind(this)
   }
 
   componentDidMount() {
@@ -72,13 +73,13 @@ class App extends React.Component {
 
 
   async getGradeData() {
-    const response = await axios.get(`${baseURL}/teachers/${this.state.teacherID}/lessons/${this.state.lessonID}/grades`)
+    const response = await axios.get(`${baseURL}/teachers/${this.state.teacherID}/lessons/${this.state.lessonID}/students/*/grades`)
     const data = response.data
     console.log(data)
     this.setState({
       grades: data
     })
-    console.log("student data: ", this.state.grades)
+    console.log("grade data: ", this.state.grades)
   }
 
   getTeacherID(id) {
@@ -115,9 +116,20 @@ class App extends React.Component {
     console.log("The selectedLesson is now: ", this.state.selectedLesson)
   }
 
+  handleAddTeacher(teacher) {
+    const copyTeachers = [...this.state.teachers, teacher];
+    this.setState({
+      teachers: copyTeachers
+    });
+    console.log(this.state.teachers);
+  }
+
+
+
+
   render() {
     return (
-      <div className="App">
+      <div>
         <Router>
           <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Navbar.Brand to="/">Quick Check <span>&#9989;</span></Navbar.Brand>
@@ -131,10 +143,12 @@ class App extends React.Component {
             </Navbar.Collapse>
           </Navbar>
 
+
           <Route
             exact path="/TeacherList"
             render={() => (
               <TeacherList
+                handleAddTeacher={this.handleAddTeacher}
                 getTeacherID={this.getTeacherID}
                 id={this.state.teacherID}
                 teachers={this.state.teachers}
@@ -145,6 +159,7 @@ class App extends React.Component {
             exact path={`/teacher/${this.state.teacherID}`}
             render={(props) => (
               <TeacherLanding
+
                 selectedTeacher={this.state.selectedTeacher}
                 lessons={this.state.lessons}
                 getLessonID={this.getLessonID}
