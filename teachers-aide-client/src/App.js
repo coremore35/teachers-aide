@@ -32,6 +32,7 @@ class App extends React.Component {
     this.getStudentData = this.getStudentData.bind(this)
     this.getGradeData = this.getGradeData.bind(this)
     this.handleAddTeacher = this.handleAddTeacher.bind(this)
+    this.handleAddLesson = this.handleAddLesson.bind(this)
   }
 
   componentDidMount() {
@@ -124,6 +125,13 @@ class App extends React.Component {
     console.log(this.state.teachers);
   }
 
+  handleAddLesson(lesson) {
+    const copyLessons = [...this.state.lessons, lesson];
+    this.setState({
+      lessons: copyLessons
+    });
+    console.log(this.state.lessons);
+  }
 
 
 
@@ -159,7 +167,7 @@ class App extends React.Component {
             exact path={`/teacher/${this.state.teacherID}`}
             render={(props) => (
               <TeacherLanding
-
+                handleAddLesson={this.handleAddLesson}
                 selectedTeacher={this.state.selectedTeacher}
                 lessons={this.state.lessons}
                 getLessonID={this.getLessonID}
