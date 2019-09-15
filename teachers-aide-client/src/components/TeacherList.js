@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { Button, Modal, Form } from 'react-bootstrap'
+import { Button, Modal, Form, Card } from 'react-bootstrap'
 import axios from 'axios';
 
 const baseURL = 'http://localhost:3000';
@@ -12,7 +12,8 @@ class TeacherList extends React.Component {
         super(props);
         this.state = {
             modal: false,
-            name: ''
+            name: '',
+            redirect: false
         }
         this.toggle = this.toggle.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -24,7 +25,7 @@ class TeacherList extends React.Component {
         this.setState({
             redirect: true
         });
-    };
+    }
 
     handleChange(event) {
         this.setState({
@@ -46,11 +47,17 @@ class TeacherList extends React.Component {
         this.toggle()
     }
 
+    async handleDelete(deletedTeacher) {
+        await axios.delete(`${baseURL}/teachers/${deletedTeacher.id}`);
+        this.setRedirect()
+    }
+
     toggle() {
         this.setState({
             modal: !this.state.modal
         });
     }
+
 
 
 
@@ -73,7 +80,20 @@ class TeacherList extends React.Component {
                                     this.props.getTeacherID(teacher.id)
 
                                 }}>
-                                    <Link to={`/teacher/${teacher.id}`}><h5>{teacher.name}</h5></Link>
+                                    <Card style={{ width: '20rem' }}>
+                                        <Card.Body>
+                                            <Card.Title>Teacher: {teacher.name}</Card.Title>
+
+                                            <Card.Link>
+                                                <Link to={`/teacher/${teacher.id}`}><Button variant="primary">View All Lessons</Button></Link>
+                                            </Card.Link>
+                                            <Card.Link>
+                                                <Button variant="danger" onClick={() => this.handleDelete(teacher)}>Delete</Button>
+                                            </Card.Link>
+
+                                        </Card.Body>
+
+                                    </Card>
 
                                 </div>
                             )

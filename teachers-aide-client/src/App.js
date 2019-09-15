@@ -4,9 +4,10 @@ import { BrowserRouter as Router, Route, Link }
 import LessonCheck from './components/LessonCheck';
 import TeacherList from './components/TeacherList'
 import TeacherLanding from './components/TeacherLanding'
+import Jumbo from './components/Jumbo.js'
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Nav, Navbar, Image, Container, Col, Row } from 'react-bootstrap'
+import { Nav, Navbar } from 'react-bootstrap'
 
 const baseURL = 'http://localhost:3000';
 
@@ -23,7 +24,8 @@ class App extends React.Component {
       lessons: [],
       selectedLesson: {},
       lessonID: null,
-      grades: []
+      grades: [],
+      jumbotron: false
     }
     this.getTeacherID = this.getTeacherID.bind(this)
     this.getLessonID = this.getLessonID.bind(this)
@@ -41,7 +43,6 @@ class App extends React.Component {
     this.getStudentData()
     this.getGradeData()
   }
-
 
   async getTeacherData() {
     const response = await axios.get(`${baseURL}/teachers`)
@@ -145,14 +146,15 @@ class App extends React.Component {
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto">
                 <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/TeacherList">Teacher List</Nav.Link>
+                <Nav.Link href="/TeacherList" onClick={this.toggleJumbo}>Teacher List</Nav.Link>
               </Nav>
 
             </Navbar.Collapse>
           </Navbar>
 
+          <Route path='/' exact component={Jumbo} />
 
-          <Route
+          < Route
             exact path="/TeacherList"
             render={() => (
               <TeacherList

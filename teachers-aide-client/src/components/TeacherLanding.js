@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { Button, Modal, Form } from 'react-bootstrap'
+import { Button, Modal, Form, Card } from 'react-bootstrap'
 import axios from 'axios';
 
 const baseURL = 'http://localhost:3000';
@@ -21,7 +21,7 @@ class TeacherLanding extends React.Component {
 
     setRedirect = () => {
         this.setState({
-            redirect: true
+            redirect: !this.state.redirect
         });
     };
 
@@ -46,6 +46,12 @@ class TeacherLanding extends React.Component {
         this.toggle()
     }
 
+
+    async handleDelete(deletedLesson) {
+        await axios.delete(`${baseURL}/teachers/${this.props.selectedTeacher.id}/lessons/${deletedLesson.id}`);
+        this.setRedirect()
+    }
+
     toggle = () => {
         this.setState({
             modal: !this.state.modal
@@ -68,8 +74,22 @@ class TeacherLanding extends React.Component {
                                 this.props.getLessonID(lesson.id)
 
                             }}>
-                                <Link to={`/teacher/${this.props.selectedTeacher.id}/lessons/${lesson.id}`}><h5>{lesson.lesson_name}</h5></Link>
 
+                                <Card style={{ width: '20rem' }}>
+                                    <Card.Body>
+                                        <Card.Title>{lesson.lesson_name}</Card.Title>
+                                        <Card.Subtitle className="mb-2 text-muted">Created: {lesson.created_at}}</Card.Subtitle>
+
+                                        <Card.Link>
+                                            <Link to={`/teacher/${this.props.selectedTeacher.id}/lessons/${lesson.id}`} variant="primary"><Button variant="primary">View Lesson</Button></Link>
+                                        </Card.Link>
+                                        <Card.Link>
+                                            <Button variant="danger" onClick={() => this.handleDelete(lesson)}>Delete</Button>
+                                        </Card.Link>
+
+                                    </Card.Body>
+
+                                </Card>
                             </div>
                         )
                     })}
