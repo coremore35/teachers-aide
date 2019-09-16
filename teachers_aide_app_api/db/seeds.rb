@@ -31,48 +31,52 @@ end
 lessons = Lesson.create([{lesson_name: 'Finding a common denominator'}, {lesson_name: 'Adding fractions with an unlike denominator'}, {lesson_name: 'Subtracting fractions with an unlike denominator'}])
 
 
-# # Teacher 1
-# n=0
-# 15.times do
-#     Grade.create(
-#         teacher_id: 1,
-#         student_id: n = n + 1,
-#         lesson_id: 1,
-#         student_grade: Faker::Number.within(range: 1..3)
-#     )
-# end
+# Teacher 1
+n=0
+15.times do
+    Grade.create(
+        teacher_id: 1,
+        student_id: n = n + 1,
+        lesson_id: 1,
+        student_grade: Faker::Number.within(range: 1..3)
+        )
+        puts "creating grade for teacher 1 lesson 1 student #{n}"
+end
 
-# n=0
-# 15.times do
-#     Grade.create(
-#         teacher_id: 1,
-#         student_id: n = n + 1,
-#         lesson_id: 2,
-#         student_grade: Faker::Number.within(range: 1..3)
-#     )
-# end
+n=0
+15.times do
+    Grade.create(
+        teacher_id: 1,
+        student_id: n = n + 1,
+        lesson_id: 2,
+        student_grade: Faker::Number.within(range: 1..3)
+        )
+        puts "creating grade for teacher 1 lesson 2 #{n}"
+end
 
-# n=0
-# 15.times do
-#     Grade.create(
-#         teacher_id: 1,
-#         student_id: n = n + 1,
-#         lesson_id: 3,
-#         student_grade: Faker::Number.within(range: 1..3)
-#     )
-# end
+n=0
+15.times do
+    Grade.create(
+        teacher_id: 1,
+        student_id: n = n + 1,
+        lesson_id: 3,
+        student_grade: Faker::Number.within(range: 1..3)
+        )
+        puts "creating grade for teacher 1 lesson 3 #{n}"
+end
 
 
-# # Teacher 2
-# n=0
-# 15.times do
-#     Grade.create(
-#         teacher_id: 2,
-#         student_id: n = n + 1,
-#         lesson_id: 1,
-#         student_grade: Faker::Number.within(range: 1..3)
-#     )
-# end
+# Teacher 2
+n=0
+15.times do
+    Grade.create(
+        teacher_id: 2,
+        student_id: n = n + 1,
+        lesson_id: 1,
+        student_grade: Faker::Number.within(range: 1..3)
+        )
+        puts "creating grade for teacher 2 lesson 1 #{n}"
+end
 
 # n=0
 # 15.times do
