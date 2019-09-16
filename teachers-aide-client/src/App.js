@@ -39,9 +39,8 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getTeacherData()
-    this.getLessonData()
-    this.getStudentData()
-    this.getGradeData()
+    // this.getStudentData()
+    // this.getGradeData()
   }
 
   async getTeacherData() {
@@ -53,9 +52,10 @@ class App extends React.Component {
     })
   }
 
-  async getLessonData() {
-    const response = await axios.get(`${baseURL}/teachers/${this.state.teacherID}/lessons`)
-    const data = response.data
+  async getLessonData(id) {
+    console.log("TEACHER ID", id)
+    const response = await axios.get(`${baseURL}/teachers/${id}`)
+    const data = response.data.lessons
     console.log(data)
     this.setState({
       lessons: data
@@ -64,7 +64,7 @@ class App extends React.Component {
   }
 
   async getStudentData() {
-    const response = await axios.get(`${baseURL}/teachers/${this.state.teacherID}/lessons/${this.state.lessonID}/students`)
+    const response = await axios.get(`${baseURL}/students`)
     const data = response.data
     console.log(data)
     this.setState({
@@ -85,18 +85,22 @@ class App extends React.Component {
   }
 
   getTeacherID(id) {
+    this.setState({
+      teacherID: id
+    })
     console.log('getting teacher ID')
-    this.state.teachers.map(teacher => {
+    this.state.teachers.forEach(teacher => {
       console.log('teacher id: ', teacher.id)
+      console.log("ID", id)
       if (teacher.id == id) {
         console.log('ID matches')
         console.log('Teacher object: ', teacher)
         this.setState({
           selectedTeacher: teacher,
-          teacherID: id
         })
       }
     })
+    this.getLessonData(id)
   }
 
   getLessonID(id) {
@@ -141,7 +145,7 @@ class App extends React.Component {
       <div>
         <Router>
           <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand to="/">Quick Check <span>&#9989;</span></Navbar.Brand>
+            <Navbar.Brand href="/">Quick Check <span>&#9989;</span></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto">
@@ -173,6 +177,7 @@ class App extends React.Component {
                 selectedTeacher={this.state.selectedTeacher}
                 lessons={this.state.lessons}
                 getLessonID={this.getLessonID}
+                getLessonData={this.getLessonData}
               />
             )}
           />
@@ -184,6 +189,7 @@ class App extends React.Component {
                 students={this.state.students}
                 selectedLesson={this.state.selectedLesson}
                 grades={this.state.grades}
+                getStudentData={this.getStudentData}
               />
             )}
           />

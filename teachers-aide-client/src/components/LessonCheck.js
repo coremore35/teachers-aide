@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import axios from 'axios'
+import cellEditFactory from 'react-bootstrap-table2-editor';
+
+
+// function beforeSaveCell(oldValue, newValue, row, column, done) {
+//     setTimeout(() => {
+//         if (confirm('Do you want to accep this change?')) {
+//             done(true);
+//         } else {
+//             done(false);
+//         }
+//     }, 0);
+//     return { async: true };
+// }
 
 
 class LessonCheck extends React.Component {
@@ -25,6 +38,11 @@ class LessonCheck extends React.Component {
         }
     }
 
+    // async afterSaveCell() {
+
+    // }
+
+
 
     render() {
         return (
@@ -37,7 +55,12 @@ class LessonCheck extends React.Component {
                     hover
                     keyField='id'
                     data={this.props.students}
-                    columns={this.state.columns} />
+                    columns={this.state.columns}
+                    cellEdit={cellEditFactory({
+                        mode: 'click'
+                    })}
+
+                ></BootstrapTable>
 
             </div>
         )

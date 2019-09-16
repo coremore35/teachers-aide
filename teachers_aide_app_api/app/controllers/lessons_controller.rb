@@ -35,7 +35,7 @@ class LessonsController < ApplicationController
 
   # DELETE /lessons/1
   def destroy
-    @lesson.destroy
+    @lesson.destroy()
   end
 
   private
@@ -46,6 +46,6 @@ class LessonsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def lesson_params
-      params.require(:lesson).permit(:lesson_name)
+      params.require(:lesson).permit(:lesson_name, :teacher_id)
     end
 end

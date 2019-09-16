@@ -7,6 +7,7 @@ import axios from 'axios';
 const baseURL = 'http://localhost:3000';
 
 class TeacherLanding extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -34,21 +35,24 @@ class TeacherLanding extends React.Component {
 
     async handleSubmit(event) {
         event.preventDefault();
-        const response = await axios.post(`${baseURL}/teachers/${this.props.selectedTeacher.id}/lessons`,
+        console.log('Selected teacher: ', this.props.selectedTeacher.id)
+        const response = await axios.post(`${baseURL}/lessons`,
             {
-                lesson_name: this.state.lesson_name
+                lesson_name: this.state.lesson_name,
+                teacher_id: this.props.selectedTeacher.id
             })
         this.setState({
-            lesson_name: ''
+            lesson_name: '',
+            teacher_id: ''
         })
         this.props.handleAddLesson(response.data)
         this.setRedirect()
         this.toggle()
     }
 
-
     async handleDelete(deletedLesson) {
-        await axios.delete(`${baseURL}/teachers/${this.props.selectedTeacher.id}/lessons/${deletedLesson.id}`);
+        console.log("deleted Lesson", deletedLesson.id)
+        await axios.delete(`${baseURL}/lessons/${deletedLesson.id}`);
         this.setRedirect()
     }
 
@@ -61,6 +65,7 @@ class TeacherLanding extends React.Component {
 
 
     render() {
+        console.log('TEACHER LAnding: ', this.props)
         return (
             <div>
                 <h2>Welcome Educator {this.props.selectedTeacher.name}!</h2>

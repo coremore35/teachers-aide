@@ -10,27 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_14_222126) do
+ActiveRecord::Schema.define(version: 2019_09_16_231513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "grades", force: :cascade do |t|
     t.integer "student_grade"
-    t.bigint "teacher_id", null: false
     t.bigint "lesson_id", null: false
     t.bigint "student_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["lesson_id"], name: "index_grades_on_lesson_id"
     t.index ["student_id"], name: "index_grades_on_student_id"
-    t.index ["teacher_id"], name: "index_grades_on_teacher_id"
   end
 
   create_table "lessons", force: :cascade do |t|
     t.string "lesson_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "teacher_id"
+    t.bigint "grades_id"
+    t.index ["grades_id"], name: "index_lessons_on_grades_id"
+    t.index ["teacher_id"], name: "index_lessons_on_teacher_id"
   end
 
   create_table "students", force: :cascade do |t|
@@ -38,7 +40,6 @@ ActiveRecord::Schema.define(version: 2019_09_14_222126) do
     t.string "last_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "grade_mark"
   end
 
   create_table "teachers", force: :cascade do |t|
@@ -49,5 +50,6 @@ ActiveRecord::Schema.define(version: 2019_09_14_222126) do
 
   add_foreign_key "grades", "lessons"
   add_foreign_key "grades", "students"
-  add_foreign_key "grades", "teachers"
+  add_foreign_key "lessons", "grades", column: "grades_id"
+  add_foreign_key "lessons", "teachers"
 end

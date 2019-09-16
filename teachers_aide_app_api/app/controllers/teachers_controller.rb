@@ -10,7 +10,7 @@ class TeachersController < ApplicationController
 
   # GET /teachers/1
   def show
-    render json: @teacher
+    render json: @teacher.to_json(:include => :lessons)
   end
 
   # POST /teachers
