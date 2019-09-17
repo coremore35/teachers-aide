@@ -16,6 +16,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      allLessons: [],
       teachers: [],
       addStuToggle: false,
       teacherID: null,
@@ -39,6 +40,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getTeacherData()
+    this.getLessonData()
     // this.getStudentData()
     // this.getGradeData()
   }
@@ -52,7 +54,15 @@ class App extends React.Component {
     })
   }
 
-  async getLessonData(id) {
+  async getLessonData() {
+    const response = await axios.get(`${baseURL}/lessons/`)
+    const data = response.data
+    this.setState({
+      allLessons: data
+    })
+  }
+
+  async getOneTeacher(id) {
     console.log("TEACHER ID", id)
     const response = await axios.get(`${baseURL}/teachers/${id}`)
     const data = response.data.lessons
@@ -63,8 +73,8 @@ class App extends React.Component {
     console.log("lesson Data: ", this.state.lessons)
   }
 
-  async getStudentData() {
-    const response = await axios.get(`${baseURL}/students`)
+  async getStudentData(id) {
+    const response = await axios.get(`${baseURL}/lessons/${id}/students`)
     const data = response.data
     console.log(data)
     this.setState({
@@ -100,13 +110,13 @@ class App extends React.Component {
         })
       }
     })
-    this.getLessonData(id)
+    this.getOneTeacher(id)
   }
 
   getLessonID(id) {
     console.log('getting lesson ID')
     console.log(this.state.lessons)
-    this.state.lessons.map(lesson => {
+    this.state.allLessons.map(lesson => {
       console.log('lesson id: ', lesson.id)
       if (lesson.id == id) {
         console.log('Lesson ID matches')
@@ -137,8 +147,6 @@ class App extends React.Component {
     });
     console.log(this.state.lessons);
   }
-
-
 
   render() {
     return (
@@ -176,6 +184,7 @@ class App extends React.Component {
                 handleAddLesson={this.handleAddLesson}
                 selectedTeacher={this.state.selectedTeacher}
                 lessons={this.state.lessons}
+                allLessons={this.state.allLessons}
                 getLessonID={this.getLessonID}
                 getLessonData={this.getLessonData}
                 getStudentData={this.getStudentData}
@@ -188,7 +197,7 @@ class App extends React.Component {
             render={(props) => (
               <LessonCheck
                 students={this.state.students}
-                selectedLesson={this.state.selectedLesson}
+                selectedLesson={this.state.selectedLesson.grades}
                 grades={this.state.grades}
 
               />

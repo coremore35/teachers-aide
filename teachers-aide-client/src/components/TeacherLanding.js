@@ -71,7 +71,7 @@ class TeacherLanding extends React.Component {
                 <h2>Welcome Educator {this.props.selectedTeacher.name}!</h2>
 
                 <div className="container">
-                    {this.props.lessons.map(lesson => {
+                    {this.props.allLessons.map(lesson => {
                         console.log("LessonList ID: ", lesson.id)
                         return (
 
@@ -86,7 +86,7 @@ class TeacherLanding extends React.Component {
                                         <Card.Subtitle className="mb-2 text-muted">Created: {lesson.created_at}}</Card.Subtitle>
 
                                         <Card.Link>
-                                            <Link to={`/teacher/${this.props.selectedTeacher.id}/lessons/${lesson.id}`} variant="primary"><Button variant="primary" onClick={() => { this.props.getStudentData() }}>View Lesson</Button></Link>
+                                            <Link to={`/teacher/${this.props.selectedTeacher.id}/lessons/${lesson.id}`} variant="primary"><Button variant="primary" onClick={() => { this.props.getStudentData(lesson.id) }}>View Lesson</Button></Link>
                                         </Card.Link>
                                         <Card.Link>
                                             <Button variant="danger" onClick={() => this.handleDelete(lesson)}>Delete</Button>
@@ -141,5 +141,3 @@ class TeacherLanding extends React.Component {
 }
 
 export default TeacherLanding;
-
-

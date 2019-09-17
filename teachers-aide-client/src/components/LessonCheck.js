@@ -20,18 +20,18 @@ class LessonCheck extends React.Component {
         super(props);
         this.state = {
             columns: [{
-                dataField: 'first_name',
+                dataField: 'student.first_name',
                 text: 'First Name',
                 sort: true
             },
             {
-                dataField: 'last_name',
+                dataField: 'student.last_name',
                 text: 'Last Name',
                 sort: true
 
             },
             {
-                dataField: "grades[0].student_grade",
+                dataField: "student_grade",
                 text: 'Grade',
                 sort: true
             }]
@@ -44,6 +44,7 @@ class LessonCheck extends React.Component {
 
 
     render() {
+        console.log(this.props.selectedLesson)
         return (
             <div className="container" style={{ marginTop: 50 }}>
                 <h4>Lesson Check</h4>
@@ -53,7 +54,7 @@ class LessonCheck extends React.Component {
                     striped
                     hover
                     keyField='id'
-                    data={this.props.students}
+                    data={this.props.selectedLesson}
                     columns={this.state.columns}
                     cellEdit={cellEditFactory({
                         mode: 'click'

@@ -5,7 +5,7 @@ class LessonsController < ApplicationController
   def index
     @lessons = Lesson.all
 
-    render json: @lessons
+    render json: @lessons.to_json(:include => {:grades => {:include => :student}})
   end
 
   # GET /lessons/1
