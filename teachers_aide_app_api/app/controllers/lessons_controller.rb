@@ -10,7 +10,8 @@ class LessonsController < ApplicationController
 
   # GET /lessons/1
   def show
-    render json: @lesson
+    # connectedGrade = Grade.find(@lesson[:id])
+    render json: @lesson.to_json(:include => {:grades => {:include => :student}})
   end
 
   # POST /lessons

@@ -7,9 +7,11 @@ Rails.application.routes.draw do
   #   end
   # end
   resources :teachers
-  resources :lessons
-  resources :students
-  resources :grades
+  resources :lessons do
+    resources :students do
+      resources :grades
+    end
+  end
   
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
