@@ -178,6 +178,7 @@ class App extends React.Component {
                 lessons={this.state.lessons}
                 getLessonID={this.getLessonID}
                 getLessonData={this.getLessonData}
+                getStudentData={this.getStudentData}
               />
             )}
           />
@@ -189,7 +190,7 @@ class App extends React.Component {
                 students={this.state.students}
                 selectedLesson={this.state.selectedLesson}
                 grades={this.state.grades}
-                getStudentData={this.getStudentData}
+
               />
             )}
           />

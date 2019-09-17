@@ -86,7 +86,7 @@ class TeacherLanding extends React.Component {
                                         <Card.Subtitle className="mb-2 text-muted">Created: {lesson.created_at}}</Card.Subtitle>
 
                                         <Card.Link>
-                                            <Link to={`/teacher/${this.props.selectedTeacher.id}/lessons/${lesson.id}`} variant="primary"><Button variant="primary">View Lesson</Button></Link>
+                                            <Link to={`/teacher/${this.props.selectedTeacher.id}/lessons/${lesson.id}`} variant="primary"><Button variant="primary" onClick={() => { this.props.getStudentData() }}>View Lesson</Button></Link>
                                         </Card.Link>
                                         <Card.Link>
                                             <Button variant="danger" onClick={() => this.handleDelete(lesson)}>Delete</Button>

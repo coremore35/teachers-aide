@@ -5,7 +5,7 @@ class StudentsController < ApplicationController
   def index
     @students = Student.all
 
-    render json: @students
+    render json: @students.to_json(:include => :grades)
   end
 
   # GET /students/1

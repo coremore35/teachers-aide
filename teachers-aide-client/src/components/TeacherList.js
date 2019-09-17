@@ -132,7 +132,7 @@ class TeacherList extends React.Component {
                         </Form>
                     </Modal>)}
 
-                {this.state.redirect && <Redirect to='/TeacherList' />}
+                {this.state.redirect && <Redirect to={`/teacher`} />}
 
 
             </div>

@@ -15,7 +15,6 @@ import cellEditFactory from 'react-bootstrap-table2-editor';
 //     return { async: true };
 // }
 
-
 class LessonCheck extends React.Component {
     constructor(props) {
         super(props);
@@ -30,14 +29,14 @@ class LessonCheck extends React.Component {
                 text: 'Last Name',
                 sort: true
 
-            }, {
-                dataField: 'grade_mark',
+            },
+            {
+                dataField: "grades[0].student_grade",
                 text: 'Grade',
                 sort: true
             }]
         }
     }
-
     // async afterSaveCell() {
 
     // }
